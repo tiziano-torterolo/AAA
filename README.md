@@ -19,26 +19,26 @@ Para establecer comunicacion con el arduino utilicen la siguiente clase
 ```python
 from Comunicadores.ComunicacionArduino import ComunicacionArduino
 
-comunicador = ComunicacionArduino()
+com = ComunicacionArduino()
 
-#comunicador = ComunicacionArduino("Serial")
-#comunicador = ComunicacionArduino("Blue")
-#comunicador = ComunicacionArduino("Wifi")
+#com = ComunicacionArduino("Serial")
+#com = ComunicacionArduino("Blue")
+#com = ComunicacionArduino("Wifi")
 ```
 
 Si quieres establecer comunciacion Serial:
 
 ```python
-comunicador = ComunicacionArduino("Serial")
+com = ComunicacionArduino("Serial")
 
-comunicador = ComunicacionArduino("Serial",baudRate = 9600)
+com = ComunicacionArduino("Serial",baudRate = 9600)
 
-comunicador = ComunicacionArduino("Serial",SerialPort="COM6")
+com = ComunicacionArduino("Serial",SerialPort="COM6")
 ```
-Si quieres establecer comunciacion Bluetooth:
+Si quieres establecer comunicacion Bluetooth:
 
 ```python
-comunicador = ComunicacionArduino("Blue")
+com = ComunicacionArduino("Blue")
 #actualmente no disponible :(
 ```
 
@@ -47,11 +47,11 @@ De forma predeterminda se inicia en comunicacion Wifi
 ```python
 ComunicacionArduino() = ComunicacionArduino("Wifi")
 
-comunicador = ComunicacionArduino("Wifi", wifiaddr = "localhost")
+com = ComunicacionArduino("Wifi", wifiaddr = "localhost")
 
-comunicador = ComunicacionArduino("Wifi", wifiport=8050)
+com = ComunicacionArduino("Wifi", wifiport=8050)
 
-comunicador = ComunicacionArduino("Wifi", wifiaddr = "localhost" , wifiport=8050)
+com = ComunicacionArduino("Wifi", wifiaddr = "localhost" , wifiport=8050)
 ```
 
 ## Enviar y Recibir Arduino
@@ -60,7 +60,7 @@ Si ya tiene conectado el arduino puede Enviar y Recibir texto con los siguientes
 metodos
 
 ```python
-comunicador.SendToArduino("ping")
+com.SendToArduino("ping")
 
 msg = comunicador.GetFromArduino()
 ```
@@ -76,29 +76,29 @@ from Controladores.ControladorSillaRobotica import ControladorSillaRobotica
 Debe crear el controlador y pasarle como parametro el comunicador
 creado anteriormente
 ```python
-controladorsilla = ControladorSillaRobotica(comunicador)
+silla = ControladorSillaRobotica(comunicador)
 ```
 
 El controlador cuenta con los siguientes metodos
 ```python
-controladorsilla.Forward() 
+silla.Forward() 
 
-controladorsilla.BackWard()
+silla.BackWard()
 
-controladorsilla.Rigth()
+silla.Rigth()
 
-controladorsilla.Left()
+silla.Left()
 
-controladorsilla.RotateLeft()
+silla.RotateLeft()
 
-controladorsilla.RotateRigth()
+silla.RotateRigth()
 
 ```
 Si quiere hacer que rote una cantidad arbitraria de grados tiene:
 ```python
-controladorsilla.RotateFreeleft(angle)
+silla.RotateFreeleft(angle)
 
-controladorsilla.RotateFreeRigth(angle)
+silla.RotateFreeRigth(angle)
 ```
 
 ## Controlador Brazo
@@ -108,7 +108,7 @@ from Controladores.ControladorBrazoRobotico import ControladorBrazoRobotico
 ```
 
 ```python
-controladorsilla = ControladorBrazoRobotico(comunicador)
+brazo = ControladorBrazoRobotico(comunicador)
 ```
 
 Recordemos que los brazos roboticos cuentan con distintos ejes, el brazo
@@ -118,7 +118,7 @@ Para guardar la posicion utilicen un marcador de posicion:
 ```python
 from Controladores.PositionMarker import PositionMarker
 
-position1 = PositionMarker([0,180,360,0,180,90])
+p1 = PositionMarker([0,180,360,0,180,90])
 #imaginen que es una posicion real :3
 
 PositionMarker() = PositionMarker([0,0,0,0,0,0])
@@ -127,18 +127,18 @@ PositionMarker() = PositionMarker([0,0,0,0,0,0])
 Para mover el brazo a una posición ya guardada utilicen:
 
 ```python
-controladorbrazo.MoveTo(position1)
+brazo.MoveTo(position1)
 
-controladorbrazo.MoveToRestPosition()
+brazo.MoveToRestPosition()
 #Envia el brazo a posicion de descanso
 
-position3 = controladorbrazo.GetPosition()
+p3 = brazo.GetPosition()
 #Obtiene la posicion actual del brazo
 #No funciona 
 ```
-## Terminando IMPORTANTE!!
+## IMPORTANTE!!
 es muy importante que una vez finalizado el codigo Cierren el comunicador
 ```python
 #end
-comunicador.Terminar()
+com.Terminar()
 ```
